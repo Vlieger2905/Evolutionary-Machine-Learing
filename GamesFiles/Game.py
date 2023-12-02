@@ -29,7 +29,6 @@ class Game:
         else:
             self.generation = 0
             self.HighestSurvival = 0  
-            self.mostCommon = []  
             for i in range(AmountCreatures) :
                 self.population.append(Circly(self.safezone))
                 
@@ -126,7 +125,6 @@ class Game:
         data = {
             'generation': self.generation,
             'HighestSurvival': self.HighestSurvival,
-            'Best survivors each few generation': self.mostCommon,
             'Genes': self.genePool
         }
 # Creating string of the current time and date.
@@ -144,7 +142,6 @@ class Game:
 # Reading the data from the file
         self.generation = data['generation']
         self.HighestSurvival = data['HighestSurvival']
-        self.mostCommon = data['Best survivors each few generation']
         self.genePool = []
         for gene_data_list in data['Genes']:
             gene_list = []
@@ -161,7 +158,6 @@ class Game:
 
 # Running the actual simulation
     def Run(self):
-        counter = 0
         while True:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
@@ -181,13 +177,6 @@ class Game:
                 self.EthnicCleansing()
                 # The surviving population will reproduce
                 self.NeukenInDeKeuken()
-                self.generation +=1
-                counter +=1
-                if counter % 5 == 0:
-                    bestSurvivor = Counter(self.colourPool).most_common(1)[0][0]
-                    bestSurvivorList = list(bestSurvivor)
-                    self.mostCommon.append(bestSurvivorList)
-                    
-                if counter == 500:
-                    counter = 0
+                self.generation +=1                
+                if self.generation % 500 ==0:
                     self.Save()

@@ -20,7 +20,7 @@ class Circly:
         self.input = [self.x, self.y,Xsafecenter, Ysafecenter, SafeZoneRadius]
         self.inputSize = len(self.input)
         self.outputSize = len(possibilities)
-        self.neuronLayer =[self.inputSize,16,16,16,self.outputSize]
+        self.neuronLayer =[self.inputSize,8,8,self.outputSize]
         self.brain = Brain(self.neuronLayer, Gene)
 
     
