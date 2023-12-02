@@ -13,6 +13,7 @@ possibilities = ['idle','up','down', 'left', 'right']
 Clones = 0.2
 Mutated = 0.7
 Random = 0.1
+BestPerformingTotal = 25
 
 MutationSize = (-0.2, 0.2)
 MutationRate = 0.1

@@ -25,7 +25,7 @@ class Game:
         self.font = pygame.font.Font(None, 36)
         if File:
             self.Load(File)
-            self.population = [Circly(gene) for gene in self.genePool]
+            self.population = [Circly(self.safezone,gene) for gene in self.genePool]
         else:
             self.generation = 0
             self.HighestSurvival = 0  
@@ -56,8 +56,13 @@ class Game:
         self.survivors = []
         self.genePool = []
         self.colourPool = []
+# Checking for the highest performing Circlys in the population and letting their genes be passed on
+        # for circly in self.HighestPerforming:
+        #     self.population.append(circly)
         self.HighestPerforming = sorted(self.population, key=lambda Circly: Circly.fitness, reverse=True)[:25]
-        print(self.HighestPerforming)
+        for Circly in self.HighestPerforming:
+            self.colourPool.append(Circly.colour)
+        print(self.HighestPerforming[0].fitness)
 #Checking whether the Circly are in the safezon and if they survive 
         for Circly in self.population:
             distance = Distance(Circly.x, Circly.y, self.safezone.x, self.safezone.y)
@@ -70,10 +75,13 @@ class Game:
             self.HighestSurvival = len(self.survivors)
 
             
-# Repopulating with the survivors #WORK IN PROGRESS
+# Repopulating with the survivors
     def NeukenInDeKeuken(self):
         newPopulation = []
         
+        # for entity in self.HighestPerforming:
+        #     newPopulation.append(Circly(self.safezone,entity.brain.layerdata,(255,0,0)))
+
         if len(self.genePool) == 0:
             for i in range(AmountCreatures):
                 newPopulation.append(Circly())

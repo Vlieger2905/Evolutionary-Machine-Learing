@@ -4,8 +4,8 @@ from .Settings import *
 
 class SafeZone:
     def __init__(self):
-        self.x = random.randint(0, XDisplay)
-        self.y = random.randint(0, YDisplay)
+        self.x = random.randint(0+ SafeZoneRadius, XDisplay-SafeZoneRadius)
+        self.y = random.randint(0+ SafeZoneRadius, YDisplay-SafeZoneRadius)
         # self.x = Xsafecenter
         # self.y = Ysafecenter
         self.radius = SafeZoneRadius
