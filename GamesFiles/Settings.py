@@ -9,6 +9,7 @@ Xsafecenter = 0.5*XDisplay
 Ysafecenter = 0.5*YDisplay
 SafeZoneRadius = 100
 possibilities = ['idle','up','down', 'left', 'right']
+newScenarioStep: 1000
 # Percentiles for specifications for the childs
 Clones = 0.2
 Mutated = 0.7

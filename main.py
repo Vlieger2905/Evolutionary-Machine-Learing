@@ -1,4 +1,4 @@
 from GamesFiles import Game
 
-game = Game.Game("SaveFiles/First Evolution.json")
+game = Game.Game()
 game.Run()

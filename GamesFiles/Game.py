@@ -19,16 +19,23 @@ class Game:
         self.genePool = []
         self.colourPool = []
         self.HighestPerforming = []
-        self.safezone = SafeZone()
         
         
+#Loading file information and other initialize randomly from 0 
         self.font = pygame.font.Font(None, 36)
         if File:
             self.Load(File)
             self.population = [Circly(self.safezone,gene) for gene in self.genePool]
+            if self.generation % 3*newScenarioStep ==0:
+                self.safezone = SafeZone('random')
+            elif self.generation % 2*newScenarioStep ==0:
+                self.safezone = SafeZone('yAxis')
+            elif self.generation % newScenarioStep ==0:
+                self.safezone = SafeZone('center')
         else:
             self.generation = 0
-            self.HighestSurvival = 0  
+            self.HighestSurvival = 0 
+            self.safezone =SafeZone('center') 
             for i in range(AmountCreatures) :
                 self.population.append(Circly(self.safezone))
                 
@@ -77,10 +84,6 @@ class Game:
 # Repopulating with the survivors
     def NeukenInDeKeuken(self):
         newPopulation = []
-        
-        # for entity in self.HighestPerforming:
-        #     newPopulation.append(Circly(self.safezone,entity.brain.layerdata,(255,0,0)))
-
         if len(self.genePool) == 0:
             for i in range(AmountCreatures):
                 newPopulation.append(Circly())
@@ -107,6 +110,7 @@ class Game:
         text_rect = text_surface.get_rect()
         text_rect.topleft = position
         self.screen.blit(text_surface, text_rect)
+# Creating the safezone dependend on the progress of generation
 # Updating the screen
     def update(self):
         self.screen.fill('white')

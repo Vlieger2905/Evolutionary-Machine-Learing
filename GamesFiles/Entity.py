@@ -10,8 +10,6 @@ class Circly:
     def __init__(self, safezone, Gene=None,Colour = None, Mutations = False):
         self.x = random.randint(0,XDisplay)
         self.y = random.randint(0,YDisplay)
-        # self.x = 0.5*XDisplay
-        # self.y = 0.5*YDisplay
         self.colour = self.ColourPicker(Colour,Mutations)
         self.size = 5
         self.decision = ''
