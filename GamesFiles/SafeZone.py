@@ -9,7 +9,7 @@ class SafeZone:
             self.y = Ysafecenter
         if position == 'yAxis': 
             self.x = Xsafecenter
-            self.y = random.randint(0+ SafeZoneRadius, YDisplay-SafeZoneRadius)
+            self.y = random.randint(0, YDisplay)
         if position == 'random': 
             self.x = random.randint(0+ SafeZoneRadius, XDisplay-SafeZoneRadius)
             self.y = random.randint(0+ SafeZoneRadius, YDisplay-SafeZoneRadius)

@@ -25,13 +25,14 @@ class Game:
         self.font = pygame.font.Font(None, 36)
         if File:
             self.Load(File)
-            self.population = [Circly(self.safezone,gene) for gene in self.genePool]
-            if self.generation % 3*newScenarioStep ==0:
+            if self.generation >= 2*ScenarioStep:
                 self.safezone = SafeZone('random')
-            elif self.generation % 2*newScenarioStep ==0:
+            elif self.generation >= ScenarioStep:
                 self.safezone = SafeZone('yAxis')
-            elif self.generation % newScenarioStep ==0:
+            else:
                 self.safezone = SafeZone('center')
+            self.population = [Circly(self.safezone,gene) for gene in self.genePool]
+            
         else:
             self.generation = 0
             self.HighestSurvival = 0 
@@ -62,13 +63,7 @@ class Game:
         self.survivors = []
         self.genePool = []
         self.colourPool = []
-# Checking for the highest performing Circlys in the population and letting their genes be passed on
-        # for circly in self.HighestPerforming:
-        #     self.population.append(circly)
-        self.HighestPerforming = sorted(self.population, key=lambda Circly: Circly.fitness, reverse=True)[:25]
-        for Circly in self.HighestPerforming:
-            self.colourPool.append(Circly.colour)
-        print(self.HighestPerforming[0].fitness)
+
 #Checking whether the Circly are in the safezon and if they survive 
         for Circly in self.population:
             distance = Distance(Circly.x, Circly.y, self.safezone.x, self.safezone.y)
@@ -176,11 +171,21 @@ class Game:
                             pygame.quit()
                             sys.exit()
                     self.update()
-                # After a certain amount of time all the Circlies that are outside of the safezone will die 
-                self.safezone = SafeZone()
+# After a certain amount of time all the Circlies that are outside of the safezone will die
+# New safezone needs to be initialized depended on the current state of the simulation
+                if self.generation >= 2*ScenarioStep:
+                    mode = 'random'
+                elif self.generation >= ScenarioStep:
+                    mode = 'yAxis'
+                else:
+                    mode = 'center'
+# Initilizing new safezone
+                self.safezone = SafeZone(mode)
+# Killing all Circly outside of the safezone
                 self.EthnicCleansing()
-                # The surviving population will reproduce
+# The surviving population will reproduce
                 self.NeukenInDeKeuken()
-                self.generation +=1                
+                self.generation +=1   
+#  Making a backup 
                 if self.generation % 500 ==0:
                     self.Save()
