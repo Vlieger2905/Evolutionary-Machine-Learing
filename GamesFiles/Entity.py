@@ -41,6 +41,8 @@ class Circly:
             output =self.brain.Thinking(self.input)
             decisionIndex = np.argmax(output)
             self.decision = possibilities[decisionIndex]
+            #  More optimalization to prevent them from vibrating. This heavily speeds up the process of caculating because by settingthe decision to idle it will not Think in the future
+            #  Add here
         
 
     def Move(self):
